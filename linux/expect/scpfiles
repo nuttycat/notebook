@@ -1,0 +1,19 @@
+#!/usr/bin/expect
+set timeout -1
+set user root
+set password root
+set ip 192.168.0.123
+spawn scp $user@$ip:/home/data/test.data /home/data/
+expect {
+"(yes/no)?"
+{
+  send "yes\n"
+  expect "*assword:" { send "$password\n"}
+}
+"*assword:"
+{
+ send "$password\n"
+}
+}
+expect "100%"
+expect eof
